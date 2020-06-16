@@ -10,14 +10,14 @@
     <header>
         <h1>ELOQUENT ORM</h1>
     </header>
-    {{-- <main>
+    <main>
         @foreach ($students as $student)
         <div class="student">
             <h4>{{ $student->name }}</h4>
             <p>{{ $student->description }}</p>
         </div>
         @endforeach    
-    </main> --}}
+    </main>
 
 </body>
 </html>

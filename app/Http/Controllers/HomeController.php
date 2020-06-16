@@ -11,7 +11,7 @@ class HomeController extends Controller
 
         // //record from table
         $students = Student::all();
-        // dd($students);
+        //dd($students);
 
         //WHERE
         // $students = Student::where('id', 1)->get();
