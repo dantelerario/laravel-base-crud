@@ -22,9 +22,11 @@
             <tbody>
                 @foreach ($classrooms as $classroom)
                     <tr>
-                        <td>{{ $classrooms->id }}</td>
-                        <td>{{ $classrooms->name }}</td>
-                        <td>Show</td>
+                        <td>{{ $classroom->id }}</td>
+                        <td>{{ $classroom->name }}</td>
+                        <td>
+                            <a href="{{ route('classrooms.show', $classroom->id ) }}">SHOW</a>
+                        </td>
                         <td>Update</td>
                         <td>Delete</td>
                     </tr>
