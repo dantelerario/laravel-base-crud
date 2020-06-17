@@ -50,7 +50,12 @@ class ClassroomController extends Controller
         $classroom->name = $data['name'];
         $classroom->description = $data['description'];
         $saved = $classroom->save(); 
-        dd($saved);
+        // dd($saved);
+
+        //redirect to show route
+        if($saved) {
+            $newClass = Classroom::find($classroom->id);
+            return redirect()->route('classrooms.show', $newClass);        }
     }
 
     /**
