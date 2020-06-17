@@ -39,6 +39,12 @@ class ClassroomController extends Controller
     {
         $data = $request->all();
 
+        //validate
+        $request->validate ([
+            'name' => 'required|unique:classrooms|max:20',
+            'description' => 'required'
+        ]);
+
         //save on db the new classroom data
         $classroom = new Classroom();
         $classroom->name = $data['name'];

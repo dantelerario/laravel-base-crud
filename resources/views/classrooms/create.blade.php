@@ -10,6 +10,17 @@
     <header>
         <h1>Create a new Classroom</h1>
     </header>
+    @if ($errors->any())
+        <div class="alert">
+            <h4>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                    <li> {{ $error }}</li>
+                    @endforeach
+                </ul>
+            </h4>
+        </div>
+    @endif
     <form action="{{ route('classrooms.store') }}" method="POST">
         @csrf
         @method('POST')
