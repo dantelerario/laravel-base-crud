@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Classroom;
 
 class ClassroomController extends Controller
 {
@@ -13,7 +14,9 @@ class ClassroomController extends Controller
      */
     public function index()
     {
-        return view('classrooms.index');
+        $classrooms = Classroom::all();
+
+        return view('classrooms.index', compact('classrooms'));
     }
 
     /**
@@ -23,7 +26,7 @@ class ClassroomController extends Controller
      */
     public function create()
     {
-        //
+        return view('classrooms.create');
     }
 
     /**
@@ -34,7 +37,14 @@ class ClassroomController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+
+        //save on db the new classroom data
+        $classroom = new Classroom();
+        $classroom->name = $data['name'];
+        $classroom->description = $data['description'];
+        $saved = $classroom->save(); 
+        dd($saved);
     }
 
     /**

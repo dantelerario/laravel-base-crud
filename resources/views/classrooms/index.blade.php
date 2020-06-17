@@ -14,20 +14,21 @@
         <h2>Class List</h2>
         <table class="table">
             <thead>
-                <th>Name</th>       
-                <th>Age</th>
-                <th>Gender</th>
-                <th>Description</th>
+                <th>ID</th>       
+                <th>NAME</th>
+                <th></th>
+                <th></th>
             </thead>
             <tbody>
-                {{-- @foreach ($students as $student)
+                @foreach ($classrooms as $classroom)
                     <tr>
-                        <td>{{ $student->name }}</td>
-                        <td>{{ $student->age }}</td>
-                        <td>{{ $student->gender }}</td>
-                        <td>{{ $student->description }}</td>
+                        <td>{{ $classrooms->id }}</td>
+                        <td>{{ $classrooms->name }}</td>
+                        <td>Show</td>
+                        <td>Update</td>
+                        <td>Delete</td>
                     </tr>
-                @endforeach     --}}
+                @endforeach    
             </tbody>
         </table>
   
