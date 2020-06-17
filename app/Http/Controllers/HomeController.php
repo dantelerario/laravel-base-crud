@@ -9,7 +9,7 @@ class HomeController extends Controller
 {
     public function index() {
 
-        // //record from table
+        //record from table
         $students = Student::all();
         //dd($students);
 

@@ -8,10 +8,10 @@
 </head>
 <body>
     <header>
-        <h1>Homepage</h1>
+        <h1>Classrooms</h1>
     </header>
     <main>
-        <h2>Student List</h2>
+        <h2>Class List</h2>
         <table class="table">
             <thead>
                 <th>Name</th>       
@@ -20,14 +20,14 @@
                 <th>Description</th>
             </thead>
             <tbody>
-                @foreach ($students as $student)
+                {{-- @foreach ($students as $student)
                     <tr>
                         <td>{{ $student->name }}</td>
                         <td>{{ $student->age }}</td>
                         <td>{{ $student->gender }}</td>
                         <td>{{ $student->description }}</td>
                     </tr>
-                @endforeach    
+                @endforeach     --}}
             </tbody>
         </table>
   
