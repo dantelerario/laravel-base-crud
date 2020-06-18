@@ -8,6 +8,11 @@
 </head>
 <body>
     <header>
+        @if (session('deleted'))
+        <div class="alert">
+            {{ session('deleted') }} successfully deleted
+        </div>
+        @endif
         <h1>Classrooms</h1>
     </header>
     <main>
@@ -27,8 +32,17 @@
                         <td>
                             <a href="{{ route('classrooms.show', $classroom->id ) }}">SHOW</a>
                         </td>
-                        <td>Update</td>
-                        <td>Delete</td>
+                        <td>
+                            <a href="{{ route('classrooms.edit', $classroom->id ) }}">UPDATE</a>
+                        </td>
+                        <td>
+                            <form action="{{ route('classrooms.destroy', $classroom->id )}}" method="POST">
+                                @csrf
+                                @method('DELETE')
+
+                                <input type="submit" value="Delete">
+                            </form>
+                        </td>
                     </tr>
                 @endforeach    
             </tbody>

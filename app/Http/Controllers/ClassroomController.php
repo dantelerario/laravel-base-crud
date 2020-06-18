@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Classroom;
+use Illuminate\Validation\Rule;
 
 class ClassroomController extends Controller
 {
@@ -40,22 +41,22 @@ class ClassroomController extends Controller
         $data = $request->all();
 
         //validate
-        $request->validate ([
-            'name' => 'required|unique:classrooms|max:20',
-            'description' => 'required'
-        ]);
+        $request->validate($this->validationRules());
 
         //save on db the new classroom data
         $classroom = new Classroom();
-        $classroom->name = $data['name'];
-        $classroom->description = $data['description'];
+        // $classroom->name = $data['name'];
+        // $classroom->description = $data['description'];
+        $classroom->fill($data);
+
         $saved = $classroom->save(); 
         // dd($saved);
 
         //redirect to show route
         if($saved) {
             $newClass = Classroom::find($classroom->id);
-            return redirect()->route('classrooms.show', $newClass);        }
+            return redirect()->route('classrooms.show', $newClass);       
+        }
     }
 
     /**
@@ -75,9 +76,11 @@ class ClassroomController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Classroom $classroom)
     {
-        //
+        // $classroom = Classroom::find($id); //dietro le quinte
+
+        return view('classrooms.edit', compact('classroom'));
     }
 
     /**
@@ -87,9 +90,26 @@ class ClassroomController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Classroom $classroom)
     {
-        //
+        $data = $request->all();
+
+        //validazione
+        // $request->validate ([
+        //     'name' => 'required|unique:classrooms|max:20',
+        //     'description' => 'required'
+        // ]);
+        //cosi' si poteva fare copiando lo store
+        $request->validate($this->validationRules($classroom->id));
+
+        //update db
+        $updated = $classroom->update($data);
+        
+        //redirect
+        if($updated) {
+            $newClass = Classroom::find($classroom->id);
+            return redirect()->route('classrooms.show', $classroom->id); 
+        }
     }
 
     /**
@@ -98,8 +118,31 @@ class ClassroomController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Classroom $classroom)
     {
-        //
+        //ref deleted entity
+        $ref = $classroom->name;
+
+        //delete 
+        $deleted = $classroom->delete();
+
+        //redirect with session data 
+        if ($deleted) {
+            return redirect()->route('classrooms.index')->with('deleted', $ref);
+        }
+    }
+
+    /**
+     * define validation rules
+     */
+    private function validationRules($id = null) {
+        return [
+            'name' => [
+                'required',
+                'max:20',
+                Rule::unique('classrooms')->ignore($id),
+            ],
+            'description' => 'required'
+        ];
     }
 }

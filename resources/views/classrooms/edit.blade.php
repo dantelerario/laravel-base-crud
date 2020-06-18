@@ -8,7 +8,7 @@
 </head>
 <body>
     <header>
-        <h1>Create a new Classroom</h1>
+        <h1>Edit a new Classroom</h1>
     </header>
     @if ($errors->any())
         <div class="alert">
@@ -21,17 +21,19 @@
             </h4>
         </div>
     @endif
-    <form action="{{ route('classrooms.store') }}" method="POST">
+    <form action="{{ route('classrooms.update', $classroom->id) }}" method="POST">
         @csrf
-        @method('POST')
+        @method('PATCH')
 
         <div class="form-group">
-             <input type="text" class="form-control" value="{{ old('name')}}"
-            name="name" placeholder="Class name">
-            <input type="text" class="form-control" value="{{ old('name')}}"
-            name="description" placeholder="Description">
+            <label for="name">Name *</label>
+            <input type="text" class="form-control" value="{{ old('name', $classroom->name) }}"
+            name="name" id='name' placeholder="Class name">
+            <label for="description">Description *</label>
+            <input type="text" class="form-control" value="{{ old('description', $classroom->description) }}"
+            name="description" id='description' placeholder="Description">
         </div>
-        <input type="submit" value="Create">
+        <input type="submit" value="Edit">
     </form>
 </body>
 </html>
